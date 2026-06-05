@@ -173,25 +173,67 @@ export default function NotePane({
 
   const frontmatter = getFrontmatter(activeNote.id);
 
+  const renderListTree = (listItems, key) => {
+    if (listItems.length === 0) return null;
+
+    const root = { children: [], indent: -1 };
+    const stack = [root];
+
+    listItems.forEach(item => {
+      const node = {
+        content: item.content,
+        children: [],
+        indent: item.indent,
+        key: item.lineIndex
+      };
+
+      while (stack.length > 1 && stack[stack.length - 1].indent >= item.indent) {
+        stack.pop();
+      }
+
+      const parent = stack[stack.length - 1];
+      parent.children.push(node);
+      stack.push(node);
+    });
+
+    const renderNodes = (nodes, isRoot = false) => {
+      if (nodes.length === 0) return null;
+      return (
+        <ul key={`ul-${nodes[0].key}`} className={isRoot ? "list-outer" : "list-nested"}>
+          {nodes.map(node => (
+            <li key={`li-${node.key}`}>
+              {parseInlineMarkdown(node.content)}
+              {renderNodes(node.children, false)}
+            </li>
+          ))}
+        </ul>
+      );
+    };
+
+    return renderNodes(root.children, true);
+  };
+
   // Parse Obsidian internal link format [[Note Name.md]] or [[Note Name]]
   const parseMarkdown = (text) => {
     if (!text) return null;
 
     const lines = text.split('\n');
     const elements = [];
-    let currentList = [];
+    let currentListLines = [];
 
     const flushList = (key) => {
-      if (currentList.length > 0) {
-        elements.push(<ul key={`list-${key}`}>{...currentList}</ul>);
-        currentList = [];
+      if (currentListLines.length > 0) {
+        elements.push(renderListTree(currentListLines, key));
+        currentListLines = [];
       }
     };
 
     lines.forEach((line, i) => {
-      if (line.startsWith('* ') || line.startsWith('- ')) {
-        const content = line.slice(2);
-        currentList.push(<li key={`li-${i}`}>{parseInlineMarkdown(content)}</li>);
+      const listMatch = line.match(/^(\s*)([*+-])\s+(.*)$/);
+      if (listMatch) {
+        const indent = listMatch[1].length;
+        const content = listMatch[3];
+        currentListLines.push({ indent, content, lineIndex: i });
       } else {
         flushList(i);
         

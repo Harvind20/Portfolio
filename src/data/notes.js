@@ -29,7 +29,7 @@ Click on any of the pages in the sidebar explorer to navigate:
     content: `# About Me 🧑‍💻
 
 ## Biography
-I am a dedicated **Software Engineering student** at Multimedia University (MMU) with hands-on experience in building scalable backend systems and mastering object-oriented design. While I thrive in backend engineering (such as developing concurrent C/C++ applications or architecting Java desktop systems), I am also highly experienced in full-stack mobile development using **React Native** and web development using **Flask**.
+I am a dedicated Software Engineering student at Multimedia University (MMU) with hands-on experience in building scalable backend systems and mastering object-oriented design. I thrive in frontend engineering, developing mobile apps using React Native as well as web development using Javascript & Flask. I am also highly experienced in architecting Java desktop systems, as well as concurrent C/C++ applications.
 
 As an engineer, I am driven by curiosity and an eagerness to learn new languages, frameworks, and coding concepts. I am known for my strong communication skills, leadership in team projects, and ability to coordinate project execution from design to delivery.
 

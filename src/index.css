@@ -285,10 +285,11 @@ body {
   padding: 40px 80px;
   display: flex;
   flex-direction: column;
-  max-width: 900px;
-  margin-left: 0;
+  width: 60%;
+  min-width: 600px;
+  max-width: 1200px;
+  margin-left: 12%;
   margin-right: auto;
-  width: 100%;
   animation: fadeIn var(--transition-normal);
 }
 
@@ -343,9 +344,21 @@ body {
   margin-bottom: 18px;
 }
 
-.markdown-body ul, .markdown-body ol {
+.markdown-body ul.list-outer, .markdown-body ol {
   margin-bottom: 18px;
-  padding-left: 32px;
+  padding-left: 24px;
+}
+
+.markdown-body ul.list-nested {
+  list-style-type: circle; /* Modern circular bullet for sub-items */
+  margin-top: 6px;
+  margin-bottom: 6px;
+  padding-left: 24px;
+}
+
+.markdown-body ul.list-nested li {
+  color: var(--text-muted); /* Nested items look slightly dimmer for visual hierarchy */
+  font-weight: normal;
 }
 
 .markdown-body li {
@@ -731,5 +744,8 @@ body {
   
   .note-container {
     padding: 24px 20px;
+    width: 100%;
+    min-width: unset;
+    margin-left: 0;
   }
 }
