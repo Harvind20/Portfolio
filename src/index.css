@@ -275,10 +275,13 @@ body {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Note/Content Pane container */
-.note-container {
+.note-viewport {
   flex: 1;
   overflow-y: auto;
+  width: 100%;
+}
+
+.note-container {
   padding: 40px 60px;
   display: flex;
   flex-direction: column;
@@ -341,11 +344,12 @@ body {
 
 .markdown-body ul, .markdown-body ol {
   margin-bottom: 18px;
-  padding-left: 24px;
+  padding-left: 18px;
 }
 
 .markdown-body li {
   margin-bottom: 8px;
+  padding-left: 2px;
 }
 
 .markdown-body blockquote {

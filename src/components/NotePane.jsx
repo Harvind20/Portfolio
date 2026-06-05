@@ -135,6 +135,11 @@ export default function NotePane({
           origin: { y: 0.6 },
           colors: ['#8b5cf6', '#a78bfa', '#10b981', '#3b82f6']
         });
+
+        // Actually dispatch email via mailto redirect
+        const mailtoSubject = `Portfolio Message from ${senderName}`;
+        const mailtoBody = `Sender Name: ${senderName}\nSender Email: ${senderEmail}\n\nMessage:\n${senderMsg}`;
+        window.location.href = `mailto:harvindddddd@gmail.com?subject=${encodeURIComponent(mailtoSubject)}&body=${encodeURIComponent(mailtoBody)}`;
       } else {
         newOutput.push('Transmission aborted.');
         setTerminalOutput(newOutput);
@@ -173,39 +178,56 @@ export default function NotePane({
     if (!text) return null;
 
     const lines = text.split('\n');
-    return lines.map((line, i) => {
-      // Header Level 1
-      if (line.startsWith('# ')) {
-        return <h1 key={i}>{parseInlineMarkdown(line.slice(2))}</h1>;
-      }
-      // Header Level 2
-      if (line.startsWith('## ')) {
-        return <h2 key={i}>{parseInlineMarkdown(line.slice(3))}</h2>;
-      }
-      // Header Level 3
-      if (line.startsWith('### ')) {
-        return <h3 key={i}>{parseInlineMarkdown(line.slice(4))}</h3>;
-      }
-      // Blockquote
-      if (line.startsWith('> ')) {
-        return <blockquote key={i}>{parseInlineMarkdown(line.slice(2))}</blockquote>;
-      }
-      // Ordered/Unordered Lists
-      if (line.startsWith('* ') || line.startsWith('- ')) {
-        return <li key={i}>{parseInlineMarkdown(line.slice(2))}</li>;
-      }
-      // Divider
-      if (line.trim() === '---') {
-        return <hr key={i} style={{ margin: '24px 0', borderColor: 'var(--border)' }} />;
-      }
-      // Empty lines
-      if (line.trim() === '') {
-        return <br key={i} />;
-      }
+    const elements = [];
+    let currentList = [];
 
-      // Normal paragraph
-      return <p key={i}>{parseInlineMarkdown(line)}</p>;
+    const flushList = (key) => {
+      if (currentList.length > 0) {
+        elements.push(<ul key={`list-${key}`}>{...currentList}</ul>);
+        currentList = [];
+      }
+    };
+
+    lines.forEach((line, i) => {
+      if (line.startsWith('* ') || line.startsWith('- ')) {
+        const content = line.slice(2);
+        currentList.push(<li key={`li-${i}`}>{parseInlineMarkdown(content)}</li>);
+      } else {
+        flushList(i);
+        
+        // Header Level 1
+        if (line.startsWith('# ')) {
+          elements.push(<h1 key={i}>{parseInlineMarkdown(line.slice(2))}</h1>);
+        }
+        // Header Level 2
+        else if (line.startsWith('## ')) {
+          elements.push(<h2 key={i}>{parseInlineMarkdown(line.slice(3))}</h2>);
+        }
+        // Header Level 3
+        else if (line.startsWith('### ')) {
+          elements.push(<h3 key={i}>{parseInlineMarkdown(line.slice(4))}</h3>);
+        }
+        // Blockquote
+        else if (line.startsWith('> ')) {
+          elements.push(<blockquote key={i}>{parseInlineMarkdown(line.slice(2))}</blockquote>);
+        }
+        // Divider
+        else if (line.trim() === '---') {
+          elements.push(<hr key={i} style={{ margin: '24px 0', borderColor: 'var(--border)' }} />);
+        }
+        // Empty lines
+        else if (line.trim() === '') {
+          elements.push(<br key={i} />);
+        }
+        // Normal paragraph
+        else {
+          elements.push(<p key={i}>{parseInlineMarkdown(line)}</p>);
+        }
+      }
     });
+
+    flushList(lines.length);
+    return elements;
   };
 
   // Helper to parse links, bold, and codes in a line
@@ -365,81 +387,88 @@ export default function NotePane({
     if (id === 'certifications') {
       const certifications = [
         {
-          date: "May 2026",
-          name: "Bash & Linux Workshop",
-          issuer: "IT Society Cyberjaya",
-          desc: "Hands-on workshop covering advanced command-line navigation, POSIX permission systems, and automated shell scripting.",
-          skills: ["Bash", "Linux", "Shell Scripting"]
+          date: "19 May 2026",
+          name: "C++ Intermediate",
+          issuer: "Sololearn (Cert ID: CC-XSFJYEWK)",
+          desc: "Comprehensive testing on pointers, dynamic allocations, namespace declarations, and standard template libraries.",
+          skills: ["C++", "OOP Design", "Memory Management"]
         },
         {
-          date: "Apr 2026",
-          name: "Project 2030: Google Stitch Hackathon",
-          issuer: "GDG on Campus UTM",
-          desc: "Built high-fidelity cloud interfaces bridging UI designs to live web apps using Google Stitch. Configured GCP front-end deployment at scale.",
-          skills: ["Google Stitch", "GCP", "UI/UX Handoff", "Generative AI"]
-        },
-        {
-          date: "Apr 2026",
-          name: "Morpheus Openclaw Workshop",
-          issuer: "IT Society Cyberjaya",
-          desc: "Configured agentic automation pipelines powered by Morpheus inference engines.",
-          skills: ["Openclaw", "Agentic Automation", "LLM Pipelines"]
-        },
-        {
-          date: "May 2026",
+          date: "16 May 2026",
           name: "Mind Of Machines: Introduction to Neural Networks",
           issuer: "GDG on Campus MMU",
           desc: "Trained Deep Learning models in TensorFlow/Keras. Explored Convolutional Neural Network (CNN) architectures and Recurrent Neural Networks (RNN).",
           skills: ["TensorFlow", "Keras", "CNN", "RNN", "Google Colab"]
         },
         {
-          date: "Apr 2026",
+          date: "4 May 2026",
+          name: "Introduction to C++",
+          issuer: "Sololearn (Cert ID: CC-4J41SZV1)",
+          desc: "Basic concepts, data types, arrays, pointers, loops, functions, and object-oriented structures.",
+          skills: ["C++", "Programming Fundamentals"]
+        },
+        {
+          date: "29 April 2026",
+          name: "Bash & Linux Workshop",
+          issuer: "IT Society Cyberjaya",
+          desc: "Hands-on workshop covering advanced command-line navigation, POSIX permission systems, and automated shell scripting.",
+          skills: ["Bash", "Linux", "Shell Scripting"]
+        },
+        {
+          date: "27 April 2026",
+          name: "Morpheus Openclaw Workshop",
+          issuer: "IT Society Cyberjaya",
+          desc: "Configured agentic automation pipelines powered by Morpheus inference engines.",
+          skills: ["Openclaw", "Agentic Automation", "LLM Pipelines"]
+        },
+        {
+          date: "25 April 2026",
           name: "Mind of Machines: Foundations of Machine Learning",
           issuer: "GDG on Campus MMU",
           desc: "Fundamentals of model validation, regression algorithms, hyperparameter tuning, and data preprocessing workflows.",
           skills: ["Machine Learning", "Model Training", "Evaluation Metrics"]
         },
         {
-          date: "Apr 2026",
+          date: "13 April 2026",
+          name: "Project 2030: Google Stitch Hackathon: Design to Deployment with Google Stitch",
+          issuer: "GDG on Campus UTM",
+          desc: "Built high-fidelity cloud interfaces bridging UI designs to live web apps using Google Stitch. Configured GCP front-end deployment at scale.",
+          skills: ["Google Stitch", "GCP", "UI/UX Handoff", "Generative AI"]
+        },
+        {
+          date: "11 April 2026",
           name: "Reactive: React Native Workshop",
           issuer: "GDGoC IIUM (Cert ID: GDGI00200012)",
           desc: "Completed full-stack mobile prototypes integrating Appwrite as a Backend-as-a-Service (BaaS) and custom navigation routers.",
           skills: ["React Native", "Appwrite", "Rapid Prototyping", "JavaScript"]
         },
         {
-          date: "May 2026",
-          name: "C++ Intermediate & Introduction to C++",
-          issuer: "Sololearn (Cert ID: CC-XSFJYEWK)",
-          desc: "Comprehensive testing on pointers, dynamic allocations, namespace declarations, and standard template libraries.",
-          skills: ["C++", "OOP Design", "Memory Management"]
-        },
-        {
-          date: "Apr 2026",
+          date: "11 April 2026",
           name: "HackPrep: Digital Forensics 101 Workshop",
           issuer: "GDG on Campus MMU",
           desc: "Competed in packet analysis CTFs. Deciphered system logs, disk images using FTK Imager, and hidden metadata signatures.",
           skills: ["Kali Linux", "Wireshark", "Digital Forensics", "CTF"]
         },
         {
-          date: "Jan 2026",
+          date: "12 March 2026",
+          name: "Google Cloud Run Workshop",
+          issuer: "GDG on Campus MMU",
+          desc: "Built dockerized containers and configured secure CI/CD pipelines targeting Google Cloud Run instances.",
+          skills: ["Docker", "Google Cloud Run", "CI/CD"]
+        },
+        {
+          date: "January 2026",
           name: "HackPrep: Web101 Security Workshop",
           issuer: "GDG on Campus MMU",
           desc: "Hands-on training exploiting and defending Cross-Site Scripting (XSS), SQL Injections, and Broken Object-Level Authorization (IDOR).",
           skills: ["Burp Suite", "SQL Injection Prevention", "Web Security", "XSS"]
         },
         {
-          date: "Dec 2025",
+          date: "December 2025",
           name: "Blockchain Fundamentals Bootcamp",
           issuer: "APU Blockchain Club",
           desc: "Ideated decentralized solutions judged by industry representatives. Created Solidity smart contracts using Remix, deploying on Scroll Sepolia testnets.",
           skills: ["Solidity", "Scroll Sepolia", "DApps", "Remix IDE"]
-        },
-        {
-          date: "Mar 2026",
-          name: "Google Cloud Run Workshop",
-          issuer: "GDG on Campus MMU",
-          desc: "Built dockerized containers and configured secure CI/CD pipelines targeting Google Cloud Run instances.",
-          skills: ["Docker", "Google Cloud Run", "CI/CD"]
         }
       ];
 
@@ -541,20 +570,22 @@ export default function NotePane({
         })}
       </div>
 
-      {/* Note Frame */}
-      <div className="note-container">
-        {/* Path breadcrumb */}
-        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '24px' }}>
-          vault &gt; {activeNote.folder} &gt; <span style={{ color: 'var(--text-primary)' }}>{activeNote.title}</span>
-        </div>
+      {/* Note Viewport (Full width scrolling) */}
+      <div className="note-viewport">
+        {/* Note Frame */}
+        <div className="note-container">
+          {/* Path breadcrumb */}
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '24px' }}>
+            vault &gt; {activeNote.folder} &gt; <span style={{ color: 'var(--text-primary)' }}>{activeNote.title}</span>
+          </div>
 
-        {/* Document Header */}
-        <h1 className="note-title-header">{activeNote.title}</h1>
+          {/* Note title header removed to prevent double titles */}
 
-        {/* Note Content Render */}
-        <div className="markdown-body">
-          {parseMarkdown(activeNote.content)}
-          {renderCustomComponent(activeNote.id)}
+          {/* Note Content Render */}
+          <div className="markdown-body">
+            {parseMarkdown(activeNote.content)}
+            {renderCustomComponent(activeNote.id)}
+          </div>
         </div>
       </div>
     </div>

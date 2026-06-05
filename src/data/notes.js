@@ -5,20 +5,18 @@ export const notesData = {
     folder: "Home",
     content: `# Welcome to Harvind's Vault 👋
 
-Welcome to my interactive **Obsidian-style Portfolio**. This site is modeled after a digital garden, where ideas, projects, and experiences are connected like nodes in a knowledge graph.
-
-I am **Harvind Sethu Pathy**, a Software Engineering student at Multimedia University (MMU) with a passion for building scalable backend systems, mastering object-oriented design, and developing full-stack web and mobile applications.
+Welcome to my software engineering portfolio. Here you can find details about my skills, projects, and professional experience.
 
 ## 🗂️ Explore My Vault
 
-Click on any of the links below to open that page:
+Click on any of the pages in the sidebar explorer to navigate:
 
-*   🧑‍💻 **[[About Me]]**: Learn more about my background, education, and interests.
-*   🛠️ **[[Skills]]**: Check out my languages, frameworks, developer tools, and certifications.
-*   🚀 **[[Projects]]**: View my software projects with GitHub repositories and technologies used.
-*   💼 **[[Experience]]**: Read about my past professional roles and leadership experiences.
-*   📜 **[[Certifications]]**: Browse my technical training workshops and certificates.
-*   📞 **[[Contact]]**: Get in touch for internships (open for **July 27th – October 18th**!).
+*   🧑‍💻 **About Me** - Learn more about my background, education, and interests.
+*   🛠️ **Skills** - Check out my languages, frameworks, developer tools, and certifications.
+*   🚀 **Projects** - View my software projects with GitHub repositories and technologies used.
+*   💼 **Experience** - Read about my past professional roles and leadership experiences.
+*   📜 **Certifications** - Browse my technical training workshops and certificates.
+*   📞 **Contact** - Get in touch for internships (open for **July 27th – October 18th**!).
 
 ---
 
@@ -47,8 +45,8 @@ As an engineer, I am driven by curiosity and an eagerness to learn new languages
 
 ### 🏫 Multimedia University (MMU)
 **Bachelor of Computer Science (Honours) Software Engineering**
-*   *Timeline*: Oct 2024 – Sep 2027
-*   *Activities & Clubs*:
+*   **Timeline**: Oct 2024 – Sep 2027
+*   **Activities & Clubs**:
     *   Google Developer Group (GDG) on Campus Member
     *   MMU IT Society Member
     *   MMU Career Club Member
@@ -59,9 +57,9 @@ As an engineer, I am driven by curiosity and an eagerness to learn new languages
 
 ### 🏫 Multimedia University (MMU)
 **Foundation Degree in Information Technology**
-*   *Timeline*: Oct 2023 – Feb 2024
-*   *Academic Performance*: **CGPA: 3.94**
-*   *Activities & Clubs*:
+*   **Timeline**: Oct 2023 – Feb 2024
+*   **Academic Performance**: **CGPA: 3.94**
+*   **Activities & Clubs**:
     *   MMU IT Society Member
     *   🏆 **3-Time Dean's List Candidate**
     *   🏀 MMU Varsity Basketball & State Basketball representation
@@ -116,7 +114,7 @@ Here is a breakdown of my engineering skills, categorized by domain. I enjoy exp
     id: "projects",
     title: "Projects",
     folder: "Work",
-    content: "" // Kept empty to only render the grid boxes style below it
+    content: ""
   },
   "experience": {
     id: "experience",
@@ -130,9 +128,9 @@ A summary of my professional history, showcasing my teamwork, sportsmanship, ada
 
 ### 🏀 Professional Athlete
 **ParkCity Heat Basketball Club & Putrajaya Basketball Association**
-*   *Timeline*: Oct 2021 – Dec 2023 (2 years 3 months)
-*   *Location*: Kuala Lumpur, Malaysia (Hybrid)
-*   *Role & Impact*:
+*   **Timeline**: Oct 2021 – Dec 2023 (2 years 3 months)
+*   **Location**: Kuala Lumpur, Malaysia (Hybrid)
+*   **Role & Impact**:
     *   Signed dual contracts competing at State and National levels (U18, U20, and Men's Open).
     *   Committed to **4 intensive weekly training sessions** while simultaneously holding down a full-time position.
     *   Acted as a brand ambassador on and off the court.
@@ -142,9 +140,9 @@ A summary of my professional history, showcasing my teamwork, sportsmanship, ada
 
 ### 👕 Production Operator & IT Support
 **SuperSports Marketing**
-*   *Timeline*: Jul 2023 – Nov 2023 (5 months)
-*   *Location*: Kuala Lumpur, Malaysia (On-site)
-*   *Role & Impact*:
+*   **Timeline**: Jul 2023 – Nov 2023 (5 months)
+*   **Location**: Kuala Lumpur, Malaysia (On-site)
+*   **Role & Impact**:
     *   Executed complex sublimation and heat-press fabrication on performance sportswear.
     *   Handled high-resolution vector and graphic design files.
     *   Served as **on-site IT support**, resolving technical, network, and system issues for colleagues and managers.
@@ -155,7 +153,7 @@ A summary of my professional history, showcasing my teamwork, sportsmanship, ada
     id: "certifications",
     title: "Certifications",
     folder: "Core",
-    content: "" // Kept empty to only render the timeline style below it
+    content: ""
   },
   "contact": {
     id: "contact",
@@ -174,8 +172,6 @@ Feel free to reach out if you have opportunities, want to discuss software engin
 ---
 
 ## ✉️ Send a Message (Secure Terminal)
-Use the interactive terminal below to send an encrypted transmission to my inbox.
-
-*(This form simulates a local terminal dispatch, complete with telemetry logs. Submit it to see a celebration effect!)*`
+Use the interactive terminal below to send an encrypted transmission to my inbox.`
   }
 };
