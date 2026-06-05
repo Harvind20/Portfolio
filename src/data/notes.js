@@ -11,12 +11,12 @@ Welcome to my software engineering portfolio. Here you can find details about my
 
 Click on any of the pages in the sidebar explorer to navigate:
 
-*   🧑‍💻 **About Me** - Learn more about my background, education, and interests.
-*   🛠️ **Skills** - Check out my languages, frameworks, developer tools, and certifications.
-*   🚀 **Projects** - View my software projects with GitHub repositories and technologies used.
-*   💼 **Experience** - Read about my past professional roles and leadership experiences.
-*   📜 **Certifications** - Browse my technical training workshops and certificates.
-*   📞 **Contact** - Get in touch for internships (open for **July 27th – October 18th**!).
+*   🧑‍💻 **About Me**: Learn more about my background, education, and interests.
+*   🛠️ **Skills**: Check out my languages, frameworks, developer tools, and certifications.
+*   🚀 **Projects**: View my software projects with GitHub repositories and technologies used.
+*   💼 **Experience**: Read about my past professional roles and leadership experiences.
+*   📜 **Certifications**: Browse my technical training workshops and certificates.
+*   📞 **Contact**: Get in touch for internships (open for **July 27th to October 18th**!).
 
 ---
 
@@ -29,14 +29,14 @@ Click on any of the pages in the sidebar explorer to navigate:
     content: `# About Me 🧑‍💻
 
 ## Biography
-I am a dedicated **Software Engineering student** at Multimedia University (MMU) with hands-on experience in building scalable backend systems and mastering object-oriented design. While I thrive in backend engineering—such as developing concurrent C/C++ applications or architecting Java desktop systems—I am also highly experienced in full-stack mobile development using **React Native** and web development using **Flask**.
+I am a dedicated **Software Engineering student** at Multimedia University (MMU) with hands-on experience in building scalable backend systems and mastering object-oriented design. While I thrive in backend engineering (such as developing concurrent C/C++ applications or architecting Java desktop systems), I am also highly experienced in full-stack mobile development using **React Native** and web development using **Flask**.
 
 As an engineer, I am driven by curiosity and an eagerness to learn new languages, frameworks, and coding concepts. I am known for my strong communication skills, leadership in team projects, and ability to coordinate project execution from design to delivery.
 
 ---
 
 ## 🎯 Internship Hunt
-*   **Availability**: **July 27th – October 18th**
+*   **Availability**: **July 27th to October 18th**
 *   **Objective**: Collaborate with experienced engineers, contribute to real-world production systems, and solve complex challenges at scale.
 
 ---
@@ -45,7 +45,7 @@ As an engineer, I am driven by curiosity and an eagerness to learn new languages
 
 ### 🏫 Multimedia University (MMU)
 **Bachelor of Computer Science (Honours) Software Engineering**
-*   **Timeline**: Oct 2024 – Sep 2027
+*   **Timeline**: Oct 2024 to Sep 2027
 *   **Activities & Clubs**:
     *   Google Developer Group (GDG) on Campus Member
     *   MMU IT Society Member
@@ -57,12 +57,12 @@ As an engineer, I am driven by curiosity and an eagerness to learn new languages
 
 ### 🏫 Multimedia University (MMU)
 **Foundation Degree in Information Technology**
-*   **Timeline**: Oct 2023 – Feb 2024
+*   **Timeline**: Oct 2023 to Feb 2024
 *   **Academic Performance**: **CGPA: 3.94**
 *   **Activities & Clubs**:
     *   MMU IT Society Member
     *   🏆 **3-Time Dean's List Candidate**
-    *   🏀 MMU Varsity Basketball & State Basketball representation
+    *   🏀 MMU Varsity Basketball and State Basketball representation
 
 ---
 
@@ -128,7 +128,7 @@ A summary of my professional history, showcasing my teamwork, sportsmanship, ada
 
 ### 🏀 Professional Athlete
 **ParkCity Heat Basketball Club & Putrajaya Basketball Association**
-*   **Timeline**: Oct 2021 – Dec 2023 (2 years 3 months)
+*   **Timeline**: Oct 2021 to Dec 2023 (2 years 3 months)
 *   **Location**: Kuala Lumpur, Malaysia (Hybrid)
 *   **Role & Impact**:
     *   Signed dual contracts competing at State and National levels (U18, U20, and Men's Open).
@@ -140,7 +140,7 @@ A summary of my professional history, showcasing my teamwork, sportsmanship, ada
 
 ### 👕 Production Operator & IT Support
 **SuperSports Marketing**
-*   **Timeline**: Jul 2023 – Nov 2023 (5 months)
+*   **Timeline**: Jul 2023 to Nov 2023 (5 months)
 *   **Location**: Kuala Lumpur, Malaysia (On-site)
 *   **Role & Impact**:
     *   Executed complex sublimation and heat-press fabrication on performance sportswear.

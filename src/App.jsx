@@ -7,10 +7,7 @@ import { notesData } from './data/notes';
 
 export default function App() {
   // Notes state
-  const [notes, setNotes] = useState(() => {
-    const saved = localStorage.getItem('obsidian-portfolio-notes');
-    return saved ? JSON.parse(saved) : notesData;
-  });
+  const [notes, setNotes] = useState(notesData);
 
   // Active note and tabs
   const [activeNoteId, setActiveNoteId] = useState('welcome');
@@ -19,11 +16,6 @@ export default function App() {
 
   // Mobile navigation drawer
   const [showSidebarMobile, setShowSidebarMobile] = useState(false);
-
-  // Sync notes to local storage on modification
-  useEffect(() => {
-    localStorage.setItem('obsidian-portfolio-notes', JSON.stringify(notes));
-  }, [notes]);
 
   const handleSelectNote = (id) => {
     // Add to open tabs if not present
