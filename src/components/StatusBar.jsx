@@ -1,7 +1,7 @@
 import React from 'react';
-import { Sun, Moon, Info, ShieldCheck } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 
-export default function StatusBar({ activeNote, theme, onToggleTheme }) {
+export default function StatusBar({ activeNote }) {
   // Count words and characters
   const wordCount = activeNote 
     ? activeNote.content.trim().split(/\s+/).filter(word => word.length > 0).length 
@@ -15,7 +15,7 @@ export default function StatusBar({ activeNote, theme, onToggleTheme }) {
           <span className="sync-dot"></span>
           <span>Sync complete</span>
         </div>
-        {activeNote && (
+        {activeNote && activeNote.content.trim().length > 0 && (
           <>
             <div className="status-item">
               <span>{wordCount} words</span>
@@ -33,18 +33,11 @@ export default function StatusBar({ activeNote, theme, onToggleTheme }) {
           <span>AES-256</span>
         </div>
         <div className="status-item">
-          <span>LN: Markdown</span>
+          <span>LN: Web</span>
         </div>
         <div className="status-item">
           <span>UTF-8</span>
         </div>
-        <button 
-          className="theme-toggle-btn" 
-          onClick={onToggleTheme}
-          title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-        >
-          {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
-        </button>
       </div>
     </footer>
   );

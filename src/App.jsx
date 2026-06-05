@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { FolderOpen, Network, FileText } from 'lucide-react';
+import { FolderOpen } from 'lucide-react';
 import Sidebar from './components/Sidebar';
 import NotePane from './components/NotePane';
-import GraphView from './components/GraphView';
 import StatusBar from './components/StatusBar';
 import { notesData } from './data/notes';
 
 export default function App() {
-  // Theme state
-  const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem('obsidian-portfolio-theme');
-    return saved || 'dark';
-  });
-
-  // Notes state (to allow live edits)
+  // Notes state
   const [notes, setNotes] = useState(() => {
     const saved = localStorage.getItem('obsidian-portfolio-notes');
     return saved ? JSON.parse(saved) : notesData;
@@ -24,24 +17,13 @@ export default function App() {
   const [openNotesList, setOpenNotesList] = useState(['welcome']);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Mobile navigation drawers
+  // Mobile navigation drawer
   const [showSidebarMobile, setShowSidebarMobile] = useState(false);
-  const [showGraphMobile, setShowGraphMobile] = useState(false);
-
-  // Sync theme to document element
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('obsidian-portfolio-theme', theme);
-  }, [theme]);
 
   // Sync notes to local storage on modification
   useEffect(() => {
     localStorage.setItem('obsidian-portfolio-notes', JSON.stringify(notes));
   }, [notes]);
-
-  const handleToggleTheme = () => {
-    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-  };
 
   const handleSelectNote = (id) => {
     // Add to open tabs if not present
@@ -50,9 +32,8 @@ export default function App() {
     }
     setActiveNoteId(id);
     
-    // Auto-close mobile drawers on selection
+    // Auto-close mobile drawer on selection
     setShowSidebarMobile(false);
-    setShowGraphMobile(false);
   };
 
   const handleCloseNote = (id) => {
@@ -87,7 +68,6 @@ export default function App() {
         <button 
           onClick={() => {
             setShowSidebarMobile(!showSidebarMobile);
-            setShowGraphMobile(false);
           }} 
           className="mobile-toggle-btn"
         >
@@ -95,16 +75,7 @@ export default function App() {
           <span>Explorer</span>
         </button>
         <span className="vault-name">Harvind's Vault</span>
-        <button 
-          onClick={() => {
-            setShowGraphMobile(!showGraphMobile);
-            setShowSidebarMobile(false);
-          }} 
-          className="mobile-toggle-btn"
-        >
-          <Network size={16} />
-          <span>Graph</span>
-        </button>
+        <div style={{ width: 80 }}></div> {/* spacer to center title */}
       </header>
 
       <div className="app-container">
@@ -129,21 +100,11 @@ export default function App() {
           onUpdateNoteContent={handleUpdateNoteContent}
         />
 
-        {/* Graph View with mobile show toggle */}
-        <GraphView
-          activeNoteId={activeNoteId}
-          onSelectNote={handleSelectNote}
-          theme={theme}
-          className={showGraphMobile ? 'show' : ''}
-        />
-
       </div>
 
       {/* Bottom Status Indicator */}
       <StatusBar
         activeNote={notes[activeNoteId]}
-        theme={theme}
-        onToggleTheme={handleToggleTheme}
       />
     </div>
   );

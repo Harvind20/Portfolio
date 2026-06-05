@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FileText, Edit3, BookOpen, ExternalLink, ArrowRight, Send, Terminal } from 'lucide-react';
+import { FileText, ExternalLink, ArrowRight, Send, Terminal } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 const GithubIcon = ({ size = 16, className = "" }) => (
@@ -28,7 +28,6 @@ export default function NotePane({
   onCloseNote,
   onUpdateNoteContent
 }) {
-  const [editMode, setEditMode] = useState(false);
   const [terminalStep, setTerminalStep] = useState(0); // 0: Idle, 1: Name, 2: Email, 3: Msg, 4: Submitting, 5: Done
   const [senderName, setSenderName] = useState('');
   const [senderEmail, setSenderEmail] = useState('');
@@ -42,8 +41,6 @@ export default function NotePane({
   useEffect(() => {
     if (activeNoteId === 'contact') {
       resetTerminal();
-    } else {
-      setEditMode(false);
     }
   }, [activeNoteId]);
 
@@ -547,93 +544,18 @@ export default function NotePane({
       {/* Note Frame */}
       <div className="note-container">
         {/* Path breadcrumb */}
-        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            vault &gt; {activeNote.folder} &gt; <span style={{ color: 'var(--text-primary)' }}>{activeNote.title}</span>
-          </div>
-          <div>
-            <button
-              onClick={() => setEditMode(!editMode)}
-              className="mobile-toggle-btn"
-              style={{ padding: '4px 8px', borderRadius: '4px' }}
-            >
-              {editMode ? (
-                <>
-                  <BookOpen size={12} /> Reading
-                </>
-              ) : (
-                <>
-                  <Edit3 size={12} /> Edit
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Mock Frontmatter */}
-        <div className="frontmatter">
-          <div className="frontmatter-title">---</div>
-          <div>type: {frontmatter.type}</div>
-          <div>status: {frontmatter.status}</div>
-          <div>tags: [{frontmatter.tags.join(', ')}]</div>
-          <div>last-sync: {new Date().toLocaleDateString()}</div>
-          <div className="frontmatter-title">---</div>
+        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '24px' }}>
+          vault &gt; {activeNote.folder} &gt; <span style={{ color: 'var(--text-primary)' }}>{activeNote.title}</span>
         </div>
 
         {/* Document Header */}
         <h1 className="note-title-header">{activeNote.title}</h1>
 
-        {/* Note Content Render / Editor */}
-        {editMode ? (
-          <textarea
-            style={{
-              width: '100%',
-              minHeight: '400px',
-              backgroundColor: 'var(--bg-secondary)',
-              color: 'var(--text-primary)',
-              border: '1px solid var(--border)',
-              borderRadius: '8px',
-              padding: '16px',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.9rem',
-              lineHeight: '1.6',
-              resize: 'vertical',
-              outline: 'none',
-              transition: 'border-color var(--transition-fast)'
-            }}
-            value={activeNote.content}
-            onChange={(e) => onUpdateNoteContent(activeNote.id, e.target.value)}
-          />
-        ) : (
-          <div className="markdown-body">
-            {parseMarkdown(activeNote.content)}
-            {renderCustomComponent(activeNote.id)}
-          </div>
-        )}
-
-        {/* Backlinks */}
-        {!editMode && backlinks.length > 0 && (
-          <div className="backlinks-section">
-            <h3 className="backlinks-title">
-              <FileText size={18} />
-              <span>Backlinks ({backlinks.length})</span>
-            </h3>
-            <div className="backlinks-grid">
-              {backlinks.map(bLink => (
-                <div
-                  key={bLink.id}
-                  className="backlink-card"
-                  onClick={() => onSelectNote(bLink.id)}
-                >
-                  <div className="backlink-card-title">{bLink.title}</div>
-                  <div className="backlink-card-preview">
-                    {bLink.content.replace(/[#*`>[\]]/g, '').slice(0, 120)}...
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        {/* Note Content Render */}
+        <div className="markdown-body">
+          {parseMarkdown(activeNote.content)}
+          {renderCustomComponent(activeNote.id)}
+        </div>
       </div>
     </div>
   );
