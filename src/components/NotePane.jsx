@@ -382,7 +382,7 @@ export default function NotePane({
                     onClick={() => onSelectNote(link.id)}
                   >
                     <div className="welcome-card-icon" style={{ background: 'var(--accent-light)', color: 'var(--accent-hover)', width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      <div style={{ margin: 'auto' }}>{link.icon}</div>
+                      {link.icon}
                     </div>
                     <div className="welcome-card-info" style={{ flexGrow: 1, textAlign: 'left' }}>
                       <h3 style={{ fontSize: '1.1rem', fontWeight: '600', marginBottom: '4px', color: 'var(--text-primary)' }}>{link.title}</h3>
@@ -589,7 +589,7 @@ export default function NotePane({
     if (id === 'projects') {
       const projects = [
         {
-          title: "Personal Glassmorphic Portfolio (Harvind's Vault)",
+          title: "Personal Portfolio Website",
           icon: <FileText className="project-icon" size={20} />,
           github: "https://github.com/Harvind20/Portfolio.git",
           desc: "A digital garden portfolio website modeled after an Obsidian vault. Engineered with custom hierarchical markdown parsing, sticky tab routing, custom interactive terminal dispatch (integrated with mailto client serialization), and a sleek dark-blue glassmorphic theme.",
