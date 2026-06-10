@@ -385,7 +385,7 @@ export default function NotePane({
                       {link.icon}
                     </div>
                     <div className="welcome-card-info" style={{ flexGrow: 1, textAlign: 'left' }}>
-                      <h3 style={{ fontSize: '1.1rem', fontWeight: '600', marginBottom: '4px', color: 'var(--text-primary)' }}>{link.title}</h3>
+                      <h3 style={{ fontSize: '1.1rem', fontWeight: '600', margin: 0, marginBottom: '4px', color: 'var(--text-primary)' }}>{link.title}</h3>
                       <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: 0, lineHeight: '1.4' }}>{link.desc}</p>
                     </div>
                     <ChevronRight size={16} className="welcome-card-arrow" style={{ color: 'var(--text-muted)', opacity: 0.5 }} />
