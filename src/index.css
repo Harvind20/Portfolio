@@ -291,7 +291,7 @@ body {
   width: 60%;
   min-width: 600px;
   max-width: 1200px;
-  margin-left: 12%;
+  margin-left: auto;
   margin-right: auto;
   animation: fadeIn var(--transition-normal);
 }
@@ -919,4 +919,107 @@ body {
   100% {
     background-position: 0% 50%;
   }
+}
+
+/* Tubelight Navbar Capsule */
+.tubelight-navbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(10, 17, 32, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px 12px;
+  border-radius: 9999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 1px 1px 2px rgba(255, 255, 255, 0.1);
+}
+
+.tubelight-nav-item {
+  position: relative;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  transition: color 0.3s ease;
+  outline: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tubelight-nav-item:hover,
+.tubelight-nav-item.active {
+  color: #ffffff;
+}
+
+.nav-label-desktop {
+  display: inline;
+}
+
+.nav-label-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .nav-label-desktop {
+    display: none;
+  }
+  .nav-label-mobile {
+    display: inline;
+  }
+}
+
+.tubelight-lamp {
+  position: absolute;
+  inset: 0;
+  background: rgba(59, 130, 246, 0.05);
+  border-radius: 9999px;
+  z-index: -1;
+}
+
+.tubelight-lamp-line {
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 2px;
+  background-color: #ffffff;
+  border-radius: 9999px;
+  box-shadow: 0 0 10px #ffffff, 0 0 20px var(--accent);
+}
+
+.tubelight-lamp-glow-1 {
+  position: absolute;
+  width: 32px;
+  height: 16px;
+  background-color: rgba(59, 130, 246, 0.25);
+  border-radius: 50%;
+  filter: blur(8px);
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tubelight-lamp-glow-2 {
+  position: absolute;
+  width: 24px;
+  height: 16px;
+  background-color: rgba(59, 130, 246, 0.25);
+  border-radius: 50%;
+  filter: blur(8px);
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
 }
