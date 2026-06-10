@@ -103,6 +103,7 @@ Here is a breakdown of my engineering skills, categorized by domain. I enjoy exp
 *   **AI Models**: \`Neural Networks\`, \`Convolutional Neural Networks (CNN)\`, \`Recurrent Neural Networks (RNN)\`
 *   **ML Environments**: \`TensorFlow\`, \`Keras\`, \`NumPy\`, \`Google Colab\`
 *   **Digital Forensics**: \`Wireshark\`, \`Kali Linux\`, \`Metadata/Packet Deciphering\`, \`FTK Imager\`
+*   **Cryptography & Reverse Engineering**: \`Cryptography\`, \`Reverse Engineering\`, \`IDA Pro\`, \`Ghidra\`, \`Binary Ninja\`
 *   **Web Security**: \`Burp Suite\`, \`SQL Injection (SQLi) Prevention\`, \`XSS\`, \`IDOR\`, \`FoxyProxy\`
 
 ---

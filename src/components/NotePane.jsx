@@ -535,7 +535,7 @@ export default function NotePane({
         {
           title: "AI / Machine Learning & Security",
           icon: <Cpu size={20} style={{ color: 'var(--accent)' }} />,
-          items: ["Neural Networks", "CNN", "RNN", "TensorFlow", "Keras", "NumPy", "Google Colab", "Wireshark", "Kali Linux", "Digital Forensics", "FTK Imager", "Burp Suite", "SQL Injection Prevention", "XSS", "IDOR", "FoxyProxy"]
+          items: ["Neural Networks", "CNN", "RNN", "TensorFlow", "Keras", "NumPy", "Google Colab", "Wireshark", "Kali Linux", "Digital Forensics", "FTK Imager", "Cryptography", "Reverse Engineering", "IDA Pro", "Ghidra", "Binary Ninja", "Burp Suite", "SQL Injection Prevention", "XSS", "IDOR", "FoxyProxy"]
         },
         {
           title: "Web3 & Blockchain",
@@ -783,6 +783,13 @@ export default function NotePane({
           skills: ["Personal Branding", "LinkedIn", "Portfolio Development", "Google Antigravity"]
         },
         {
+          date: "23 May 2026",
+          name: "HackPrep: Reverse Engineering 101",
+          issuer: "GDG on Campus MMU",
+          desc: "Gained practical proficiency in binary analysis and software reverse engineering. Utilized IDA Pro, Binary Ninja, and Ghidra to perform static analysis, interpret program logic, and deconstruct compiled binaries.",
+          skills: ["Reverse Engineering", "Binary Analysis", "Ghidra & IDA Pro", "Static Analysis", "Assembly Logic"]
+        },
+        {
           date: "19 May 2026",
           name: "C++ Intermediate",
           issuer: "Sololearn (Cert ID: CC-XSFJYEWK)",
@@ -802,6 +809,13 @@ export default function NotePane({
           issuer: "Sololearn (Cert ID: CC-4J41SZV1)",
           desc: "Basic concepts, data types, arrays, pointers, loops, functions, and object-oriented structures.",
           skills: ["C++", "Programming Fundamentals"]
+        },
+        {
+          date: "3 May 2026",
+          name: "HackPrep: Cryptography 101",
+          issuer: "GDG on Campus MMU",
+          desc: "Introduced fundamental cryptography concepts including classic ciphers, hashing functions, secure symmetric/asymmetric algorithms (AES, RSA), digital signatures, and post-quantum cryptosystems.",
+          skills: ["Cryptography", "Encryption Protocols", "AES & RSA", "Hash Collisions", "Digital Signatures"]
         },
         {
           date: "29 April 2026",
