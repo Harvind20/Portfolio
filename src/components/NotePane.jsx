@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { FileText, ExternalLink, ArrowRight, Send, Terminal } from 'lucide-react';
+import { 
+  FileText, ExternalLink, ArrowRight, Send, Terminal, 
+  Cpu, Globe, Award, Database, Briefcase, History, Mail, 
+  User, ChevronRight, CheckCircle, Clock, Star, TrendingUp, 
+  Video, Calendar, MapPin 
+} from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { motion } from 'framer-motion';
+import { HeroGeometric } from './ui/shape-landing-hero';
 
 const GithubIcon = ({ size = 16, className = "" }) => (
   <svg 
@@ -19,6 +26,21 @@ const GithubIcon = ({ size = 16, className = "" }) => (
     <path d="M9 18c-4.51 2-5-2-7-2" />
   </svg>
 );
+
+const ScrollReveal = ({ children }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40, rotateX: 10, scale: 0.96 }}
+      whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      style={{ transformPerspective: 1200, transformStyle: "preserve-3d" }}
+      className="w-full"
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 export default function NotePane({
   notes,
@@ -49,19 +71,11 @@ export default function NotePane({
       <div className="workspace" style={{ justifyContent: 'center', alignItems: 'center', color: 'var(--text-muted)' }}>
         <div style={{ textAlign: 'center' }}>
           <FileText size={48} style={{ margin: '0 auto 16px auto', opacity: 0.5 }} />
-          <p>No note open. Select a note from the file explorer or click on the graph.</p>
+          <p>No note open. Select a page from the navigation bar.</p>
         </div>
       </div>
     );
   }
-
-  // Calculate backlinks
-  const backlinks = Object.values(notes).filter(note => {
-    if (note.id === activeNote.id) return false;
-    // Check if other notes contain a reference to this note's title or base title
-    const searchTitle = activeNote.title.replace('.md', '');
-    return note.content.includes(`[[${activeNote.title}]]`) || note.content.includes(`[[${searchTitle}]]`);
-  });
 
   // Reset terminal
   const resetTerminal = () => {
@@ -277,11 +291,6 @@ export default function NotePane({
     let parts = [];
     let currentIndex = 0;
     
-    // Pattern matches: 
-    // 1. Double brackets [[Page.md]] or [[Page|Label]]
-    // 2. Bold text **Bold**
-    // 3. Monospace code `Code`
-    // 4. Standard Markdown link [Label](Url)
     const regex = /(\[\[[^\]]+\]\]|\*\*[^*]+\*\*|`[^`]+`|\[[^\]]+\]\([^)]+\))/g;
     let match;
 
@@ -302,9 +311,7 @@ export default function NotePane({
         const targetClean = target.trim();
         const displayLabel = label ? label.trim() : targetClean;
 
-        // Map note name back to ID
         let noteId = targetClean.toLowerCase().replace('.md', '').replace(/\s+/g, '-');
-        // Handle variations
         if (noteId === 'about-me') noteId = 'about';
 
         parts.push(
@@ -347,6 +354,207 @@ export default function NotePane({
 
   // Custom Portfolio Components Inside Notes
   const renderCustomComponent = (id) => {
+    if (id === 'welcome') {
+      const exploreLinks = [
+        { id: 'about', title: "About Me", desc: "My biography, academic background, and interests.", icon: <User size={20} /> },
+        { id: 'skills', title: "Skills & Stack", desc: "Core languages, web/mobile frameworks, and DevOps tools.", icon: <Cpu size={20} /> },
+        { id: 'projects', title: "Projects", desc: "View my software projects with active source repositories.", icon: <Briefcase size={20} /> },
+        { id: 'experience', title: "Experience", desc: "My professional athlete history and IT support roles.", icon: <History size={20} /> },
+        { id: 'certifications', title: "Certifications", desc: "Browse technical training workshops and credentials.", icon: <Award size={20} /> },
+        { id: 'contact', title: "Contact Info", desc: "Get in touch for software engineering internships.", icon: <Mail size={20} /> }
+      ];
+      
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '40px', marginTop: '-40px' }}>
+          <HeroGeometric 
+            badge="Multimedia University Student"
+            title1="Harvind"
+            title2="Sethu Pathy"
+          />
+          
+          <div style={{ marginTop: '20px' }}>
+            <ScrollReveal>
+              <h2 className="welcome-grid-heading" style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '24px', textAlign: 'center', background: 'linear-gradient(135deg, #fff, var(--accent-hover))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Explore My Vault</h2>
+            </ScrollReveal>
+            
+            <div className="welcome-explore-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
+              {exploreLinks.map((link) => (
+                <ScrollReveal key={link.id}>
+                  <div 
+                    className="liquid-glass-card welcome-card" 
+                    style={{ padding: '24px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '16px', height: '100%', position: 'relative' }}
+                    onClick={() => onSelectNote(link.id)}
+                  >
+                    <div className="welcome-card-icon" style={{ background: 'var(--accent-light)', color: 'var(--accent-hover)', width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <div style={{ margin: 'auto' }}>{link.icon}</div>
+                    </div>
+                    <div className="welcome-card-info" style={{ flexGrow: 1 }}>
+                      <h3 style={{ fontSize: '1.1rem', fontWeight: '600', marginBottom: '4px', color: 'var(--text-primary)' }}>{link.title}</h3>
+                      <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: 0, lineHeight: '1.4' }}>{link.desc}</p>
+                    </div>
+                    <ChevronRight size={16} className="welcome-card-arrow" style={{ color: 'var(--text-muted)', opacity: 0.5 }} />
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (id === 'about') {
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '30px', marginTop: '20px' }}>
+          <ScrollReveal>
+            <div className="liquid-glass-card" style={{ padding: '30px' }}>
+              <h2 style={{ fontSize: '1.5rem', marginBottom: '16px', color: 'var(--text-primary)', fontWeight: '700' }}>Biography</h2>
+              <p style={{ color: '#cbd5e1', lineHeight: '1.8', fontSize: '0.98rem', marginBottom: '16px' }}>
+                I am a dedicated Software Engineering student at Multimedia University (MMU) with hands-on experience in building scalable backend systems and mastering object-oriented design. I thrive in frontend engineering, developing mobile apps using React Native as well as web development using Javascript & Flask. I am also highly experienced in architecting Java desktop systems, as well as concurrent C/C++ applications.
+              </p>
+              <p style={{ color: '#cbd5e1', lineHeight: '1.8', fontSize: '0.98rem' }}>
+                As an engineer, I am driven by curiosity and an eagerness to learn new languages, frameworks, and coding concepts. I am known for my strong communication skills, leadership in team projects, and ability to coordinate project execution from design to delivery.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <div className="liquid-glass-card" style={{ padding: '30px' }}>
+              <h2 style={{ fontSize: '1.5rem', marginBottom: '16px', color: 'var(--text-primary)', fontWeight: '700' }}>🎯 Internship Hunt</h2>
+              <ul className="list-outer" style={{ color: '#cbd5e1', lineHeight: '1.8', margin: '0', paddingLeft: '20px' }}>
+                <li style={{ marginBottom: '8px' }}>
+                  <strong>Availability</strong>: July 27th to October 18th
+                </li>
+                <li>
+                  <strong>Objective</strong>: Collaborate with experienced engineers, contribute to real-world production systems, and solve complex challenges at scale.
+                </li>
+              </ul>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <h2 style={{ fontSize: '1.6rem', marginTop: '10px', color: 'var(--text-primary)', fontWeight: '800' }}>🎓 Education</h2>
+              
+              <div className="liquid-glass-card" style={{ padding: '30px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginBottom: '12px' }}>
+                  <div>
+                    <h3 style={{ fontSize: '1.2rem', fontWeight: '700', color: 'var(--text-primary)' }}>🏫 Multimedia University (MMU)</h3>
+                    <p style={{ fontSize: '0.9rem', color: 'var(--accent-hover)', fontWeight: '500' }}>Bachelor of Computer Science (Honours) Software Engineering</p>
+                  </div>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Oct 2024 to Sep 2027</span>
+                </div>
+                <div style={{ color: '#cbd5e1', fontSize: '0.9rem' }}>
+                  <p style={{ marginBottom: '8px', fontWeight: '600' }}>Activities & Clubs:</p>
+                  <ul className="list-nested" style={{ paddingLeft: '20px', listStyleType: 'circle' }}>
+                    <li style={{ color: 'var(--text-muted)' }}>Google Developer Group (GDG) on Campus Member</li>
+                    <li style={{ color: 'var(--text-muted)' }}>MMU IT Society Member</li>
+                    <li style={{ color: 'var(--text-muted)' }}>MMU Career Club Member</li>
+                    <li style={{ color: 'var(--text-muted)' }}>🏀 MMU Varsity Basketball Team</li>
+                    <li style={{ color: 'var(--text-primary)', fontWeight: '600' }}>🏆 2-Time Dean's List Candidate</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="liquid-glass-card" style={{ padding: '30px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginBottom: '12px' }}>
+                  <div>
+                    <h3 style={{ fontSize: '1.2rem', fontWeight: '700', color: 'var(--text-primary)' }}>🏫 Multimedia University (MMU)</h3>
+                    <p style={{ fontSize: '0.9rem', color: 'var(--accent-hover)', fontWeight: '500' }}>Foundation Degree in Information Technology</p>
+                  </div>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Oct 2023 to Feb 2024</span>
+                </div>
+                <div style={{ color: '#cbd5e1', fontSize: '0.9rem' }}>
+                  <p style={{ marginBottom: '8px', fontWeight: '600' }}>Academic Performance: <span style={{ color: 'var(--text-primary)', fontWeight: '700' }}>CGPA: 3.94</span></p>
+                  <p style={{ marginBottom: '8px', fontWeight: '600' }}>Activities & Clubs:</p>
+                  <ul className="list-nested" style={{ paddingLeft: '20px', listStyleType: 'circle' }}>
+                    <li style={{ color: 'var(--text-muted)' }}>MMU IT Society Member</li>
+                    <li style={{ color: 'var(--text-primary)', fontWeight: '600' }}>🏆 3-Time Dean's List Candidate</li>
+                    <li style={{ color: 'var(--text-muted)' }}>🏀 MMU Varsity Basketball and State Basketball representation</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <div className="liquid-glass-card" style={{ padding: '30px' }}>
+              <h2 style={{ fontSize: '1.5rem', marginBottom: '16px', color: 'var(--text-primary)', fontWeight: '700' }}>🏀 Extra-Curriculars & Character</h2>
+              <p style={{ color: '#cbd5e1', lineHeight: '1.8', fontSize: '0.98rem' }}>
+                Beyond coding, I have been deeply involved in high-level sports. Representing my state and varsity teams in <strong>Basketball</strong> has taught me discipline, rapid decision-making under stress, and what it truly means to lead and collaborate within a team. I bring this same drive and athletic discipline to my software engineering projects.
+              </p>
+            </div>
+          </ScrollReveal>
+        </div>
+      );
+    }
+
+    if (id === 'skills') {
+      const skillGroups = [
+        {
+          title: "💻 Programming Languages",
+          skills: [
+            { name: "Backend & Systems", items: ["Java", "C++", "C", "C#", "Python"] },
+            { name: "Web & Scripting", items: ["JavaScript", "HTML5", "CSS3", "Bash / Linux Shell"] },
+            { name: "Typesetting", items: ["LaTeX"] }
+          ]
+        },
+        {
+          title: "🌐 Web & Mobile Development",
+          items: ["React Native", "Appwrite Integration", "BaaS", "Flask", "POSIX Socket Programming", "SQLite", "JDBC", "Google Stitch", "UI/UX Prototyping"]
+        },
+        {
+          title: "☁️ Cloud & DevOps",
+          items: ["Google Cloud Run", "PythonAnywhere", "Vercel", "Docker", "CI/CD Pipelines", "Git", "GitHub"]
+        },
+        {
+          title: "🧠 AI / Machine Learning & Security",
+          items: ["Neural Networks", "CNN", "RNN", "TensorFlow", "Keras", "NumPy", "Google Colab", "Wireshark", "Kali Linux", "Digital Forensics", "FTK Imager", "Burp Suite", "SQL Injection Prevention", "XSS", "IDOR", "FoxyProxy"]
+        },
+        {
+          title: "🔗 Web3 & Blockchain",
+          items: ["Ethereum", "Solidity", "Remix IDE", "Scroll Sepolia", "DApps"]
+        }
+      ];
+
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', marginTop: '20px' }}>
+          <ScrollReveal>
+            <p style={{ color: 'var(--text-muted)' }}>Here is a breakdown of my engineering skills, categorized by domain. I enjoy experimenting with low-level details as well as high-level web frameworks.</p>
+          </ScrollReveal>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
+            {skillGroups.map((group, idx) => (
+              <ScrollReveal key={idx}>
+                <div className="liquid-glass-card" style={{ padding: '24px', height: '100%' }}>
+                  <h3 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '16px', color: 'var(--text-primary)' }}>{group.title}</h3>
+                  {group.skills ? (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                      {group.skills.map((sub, sIdx) => (
+                        <div key={sIdx}>
+                          <p style={{ fontSize: '0.85rem', color: 'var(--accent-hover)', fontWeight: '600', marginBottom: '4px' }}>{sub.name}</p>
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                            {sub.items.map((item, iIdx) => (
+                              <code key={iIdx} style={{ fontSize: '0.8rem', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', padding: '2px 6px', borderRadius: '4px' }}>{item}</code>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                      {group.items.map((item, iIdx) => (
+                        <code key={iIdx} style={{ fontSize: '0.8rem', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', padding: '2px 6px', borderRadius: '4px' }}>{item}</code>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
     if (id === 'projects') {
       const projects = [
         {
@@ -396,7 +604,7 @@ export default function NotePane({
           tags: ["Java", "Java Swing", "System Scoping", "Sequence Diagrams"],
           status: "Verified",
           meta: "Desktop",
-          colSpan: 1
+          colSpan: 2
         },
         {
           title: "Touch 'n Go Digital Wallet Simulator",
@@ -416,7 +624,7 @@ export default function NotePane({
           tags: ["C++", "OOP Design", "Multiple Inheritance", "File-Driven Config"],
           status: "Complete",
           meta: "OOP",
-          colSpan: 2
+          colSpan: 1
         },
         {
           title: "BudgetBadger: Social Finance WebApp",
@@ -426,44 +634,106 @@ export default function NotePane({
           tags: ["Python", "Flask", "SQLite", "PythonAnywhere"],
           status: "Production",
           meta: "Flask",
-          colSpan: 1
+          colSpan: 2
         }
       ];
 
       return (
         <div className="projects-grid">
           {projects.map((proj, idx) => (
-            <div key={idx} className={`project-card ${proj.colSpan === 2 ? 'span-2' : ''}`}>
-              <div className="project-card-header">
-                <div className="project-icon-wrapper">
-                  {proj.icon}
+            <ScrollReveal key={idx}>
+              <div className={`project-card liquid-glass-card ${proj.colSpan === 2 ? 'span-2' : ''}`}>
+                <div className="project-card-header">
+                  <div className="project-icon-wrapper">
+                    {proj.icon}
+                  </div>
+                  <span className="project-status-badge">{proj.status || "Active"}</span>
                 </div>
-                <span className="project-status-badge">{proj.status || "Active"}</span>
+                <div className="project-card-body">
+                  <h3 className="project-card-title">
+                    {proj.title}
+                    {proj.meta && <span className="project-card-meta">{proj.meta}</span>}
+                  </h3>
+                  <p className="project-card-desc">{proj.desc}</p>
+                </div>
+                <div className="project-card-footer">
+                  <div className="project-tags">
+                    {proj.tags.map((tag, tIdx) => (
+                      <span key={tIdx} className="project-tag">#{tag}</span>
+                    ))}
+                  </div>
+                  {proj.github ? (
+                    <a href={proj.github} target="_blank" rel="noopener noreferrer" className="project-cta-link">
+                      Explore →
+                    </a>
+                  ) : (
+                    <span className="project-cta-link disabled">Internal</span>
+                  )}
+                </div>
+                
+                <div className="project-card-mesh-bg" />
               </div>
-              <div className="project-card-body">
-                <h3 className="project-card-title">
-                  {proj.title}
-                  {proj.meta && <span className="project-card-meta">{proj.meta}</span>}
-                </h3>
-                <p className="project-card-desc">{proj.desc}</p>
-              </div>
-              <div className="project-card-footer">
-                <div className="project-tags">
-                  {proj.tags.map((tag, tIdx) => (
-                    <span key={tIdx} className="project-tag">#{tag}</span>
+            </ScrollReveal>
+          ))}
+        </div>
+      );
+    }
+
+    if (id === 'experience') {
+      const experiences = [
+        {
+          title: "🏀 Professional Athlete",
+          company: "ParkCity Heat Basketball Club & Putrajaya Basketball Association",
+          timeline: "Oct 2021 to Dec 2023 (2 years 3 months)",
+          location: "Kuala Lumpur, Malaysia (Hybrid)",
+          bullets: [
+            "Signed dual contracts competing at State and National levels (U18, U20, and Men's Open).",
+            "Committed to 4 intensive weekly training sessions while simultaneously holding down a full-time position.",
+            "Acted as a brand ambassador on and off the court.",
+            "Integrated into a predominantly Chinese-speaking squad; overcame the barrier by developing tactical hand cues and learning conversational terms."
+          ]
+        },
+        {
+          title: "👕 Production Operator & IT Support",
+          company: "SuperSports Marketing",
+          timeline: "Jul 2023 to Nov 2023 (5 months)",
+          location: "Kuala Lumpur, Malaysia (On-site)",
+          bullets: [
+            "Executed complex sublimation and heat-press fabrication on performance sportswear.",
+            "Handled high-resolution vector and graphic design files.",
+            "Served as on-site IT support, resolving technical, network, and system issues for colleagues and managers.",
+            "Supervised logs, tracking client orders, delivery dates, and material inventory.",
+            "Thrived in a Chinese-speaking workspace by mastering industry-specific terminology to ensure precise fabrication."
+          ]
+        }
+      ];
+
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', marginTop: '20px' }}>
+          <ScrollReveal>
+            <p style={{ color: 'var(--text-muted)' }}>A summary of my professional history, showcasing my teamwork, sportsmanship, adaptability, and technical capability.</p>
+          </ScrollReveal>
+
+          {experiences.map((exp, idx) => (
+            <ScrollReveal key={idx}>
+              <div className="liquid-glass-card" style={{ padding: '30px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginBottom: '14px', borderBottom: '1px solid var(--border)', paddingBottom: '12px' }}>
+                  <div>
+                    <h3 style={{ fontSize: '1.3rem', fontWeight: '700', color: 'var(--text-primary)' }}>{exp.title}</h3>
+                    <p style={{ fontSize: '0.95rem', color: 'var(--accent-hover)', fontWeight: '500' }}>{exp.company}</p>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                    <span>{exp.timeline}</span>
+                    <span>{exp.location}</span>
+                  </div>
+                </div>
+                <ul className="list-outer" style={{ color: '#cbd5e1', lineHeight: '1.8', margin: '0', paddingLeft: '20px' }}>
+                  {exp.bullets.map((bullet, bIdx) => (
+                    <li key={bIdx} style={{ marginBottom: '8px' }}>{bullet}</li>
                   ))}
-                </div>
-                {proj.github ? (
-                  <a href={proj.github} target="_blank" rel="noopener noreferrer" className="project-cta-link">
-                    Explore →
-                  </a>
-                ) : (
-                  <span className="project-cta-link disabled">Internal</span>
-                )}
+                </ul>
               </div>
-              
-              <div className="project-card-mesh-bg" />
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       );
@@ -565,21 +835,25 @@ export default function NotePane({
       ];
 
       return (
-        <div className="cert-timeline">
+        <div className="cert-timeline" style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginTop: '20px' }}>
           {certifications.map((cert, index) => (
-            <div key={index} className="cert-item">
-              <div className="cert-date">{cert.date}</div>
-              <div className="cert-name">{cert.name}</div>
-              <div className="cert-issuer">{cert.issuer}</div>
-              <p className="cert-desc">{cert.desc}</p>
-              <div className="project-tags" style={{ marginTop: '8px' }}>
-                {cert.skills.map((skill, sIdx) => (
-                  <span key={sIdx} className="project-tag" style={{ background: 'var(--accent-light)', color: 'var(--accent)', borderColor: 'transparent' }}>
-                    {skill}
-                  </span>
-                ))}
+            <ScrollReveal key={index}>
+              <div className="liquid-glass-card cert-item" style={{ padding: '24px', borderLeft: '4px solid var(--accent)', position: 'relative' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginBottom: '8px' }}>
+                  <span className="cert-date" style={{ color: 'var(--accent-hover)', fontSize: '0.8rem', fontWeight: '600' }}>{cert.date}</span>
+                  <span className="cert-issuer" style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{cert.issuer}</span>
+                </div>
+                <h3 className="cert-name" style={{ fontSize: '1.2rem', fontWeight: '700', marginBottom: '8px', color: 'var(--text-primary)' }}>{cert.name}</h3>
+                <p className="cert-desc" style={{ color: '#cbd5e1', fontSize: '0.9rem', lineHeight: '1.6', marginBottom: '12px' }}>{cert.desc}</p>
+                <div className="project-tags">
+                  {cert.skills.map((skill, sIdx) => (
+                    <span key={sIdx} className="project-tag" style={{ background: 'rgba(59, 130, 246, 0.1)', color: 'var(--accent-hover)', border: '1px solid rgba(59, 130, 246, 0.15)' }}>
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       );
@@ -587,46 +861,70 @@ export default function NotePane({
 
     if (id === 'contact') {
       return (
-        <div className="terminal-card">
-          <div className="terminal-header">
-            <div className="terminal-buttons">
-              <span className="term-btn red"></span>
-              <span className="term-btn yellow"></span>
-              <span className="term-btn green"></span>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', marginTop: '20px' }}>
+          <ScrollReveal>
+            <div className="liquid-glass-card" style={{ padding: '30px' }}>
+              <h2 style={{ fontSize: '1.5rem', marginBottom: '16px', color: 'var(--text-primary)', fontWeight: '700' }}>📬 Communication Channels</h2>
+              <ul className="list-outer" style={{ color: '#cbd5e1', lineHeight: '1.8', margin: '0', paddingLeft: '20px' }}>
+                <li style={{ marginBottom: '8px' }}>
+                  <strong>Email</strong>: <a href="mailto:harvindddddd@gmail.com" style={{ color: 'var(--accent-hover)', textDecoration: 'none' }}>harvindddddd@gmail.com</a>
+                </li>
+                <li style={{ marginBottom: '8px' }}>
+                  <strong>GitHub</strong>: <a href="https://github.com/Harvind20" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-hover)', textDecoration: 'none' }}>github.com/Harvind20</a>
+                </li>
+                <li style={{ marginBottom: '8px' }}>
+                  <strong>LinkedIn</strong>: <a href="https://www.linkedin.com/in/harvind-s-397871319" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-hover)', textDecoration: 'none' }}>linkedin.com/in/harvind-s-397871319</a>
+                </li>
+                <li>
+                  <strong>Physical Location</strong>: Puchong, Selangor, 47100, Malaysia (Open to hybrid, on-site, or remote internships)
+                </li>
+              </ul>
             </div>
-            <div className="terminal-title">bash - visitor@harvind-os: ~</div>
-            <div></div>
-          </div>
-          <div className="terminal-body" onClick={() => document.getElementById('terminal-prompt-input')?.focus()}>
-            {terminalOutput.map((line, idx) => (
-              <div key={idx} className="terminal-line">{line}</div>
-            ))}
-            
-            {terminalStep <= 4 && (
-              <form onSubmit={handleTerminalSubmit} className="terminal-input-wrapper">
-                <span className="terminal-prompt">visitor@harvind-os:~$</span>
-                <input
-                  id="terminal-prompt-input"
-                  type={terminalStep === 2 ? "email" : "text"}
-                  className="terminal-input"
-                  value={terminalInput}
-                  onChange={(e) => setTerminalInput(e.target.value)}
-                  autoFocus
-                  autoComplete="off"
-                />
-              </form>
-            )}
+          </ScrollReveal>
 
-            {terminalStep === 5 && (
-              <button 
-                onClick={resetTerminal}
-                className="mobile-toggle-btn"
-                style={{ alignSelf: 'flex-start', border: '1px solid var(--accent)', color: 'var(--accent)', background: 'transparent' }}
-              >
-                Send Another Transmission <ArrowRight size={14} />
-              </button>
-            )}
-          </div>
+          <ScrollReveal>
+            <div className="terminal-card liquid-glass-card" style={{ border: '2px solid rgba(255, 255, 255, 0.15)' }}>
+              <div className="terminal-header">
+                <div className="terminal-buttons">
+                  <span className="term-btn red"></span>
+                  <span className="term-btn yellow"></span>
+                  <span className="term-btn green"></span>
+                </div>
+                <div className="terminal-title">bash - visitor@harvind-os: ~</div>
+                <div></div>
+              </div>
+              <div className="terminal-body" onClick={() => document.getElementById('terminal-prompt-input')?.focus()}>
+                {terminalOutput.map((line, idx) => (
+                  <div key={idx} className="terminal-line">{line}</div>
+                ))}
+                
+                {terminalStep <= 4 && (
+                  <form onSubmit={handleTerminalSubmit} className="terminal-input-wrapper">
+                    <span className="terminal-prompt">visitor@harvind-os:~$</span>
+                    <input
+                      id="terminal-prompt-input"
+                      type={terminalStep === 2 ? "email" : "text"}
+                      className="terminal-input"
+                      value={terminalInput}
+                      onChange={(e) => setTerminalInput(e.target.value)}
+                      autoFocus
+                      autoComplete="off"
+                    />
+                  </form>
+                )}
+
+                {terminalStep === 5 && (
+                  <button 
+                    onClick={resetTerminal}
+                    className="mobile-toggle-btn"
+                    style={{ alignSelf: 'flex-start', border: '1px solid var(--accent)', color: 'var(--accent)', background: 'transparent' }}
+                  >
+                    Send Another Transmission <ArrowRight size={14} />
+                  </button>
+                )}
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
       );
     }
@@ -636,32 +934,6 @@ export default function NotePane({
 
   return (
     <div className="workspace">
-      {/* Dynamic Tab Bar */}
-      <div className="tab-bar">
-        {openNotesList.map(tabId => {
-          const tabNote = notes[tabId];
-          if (!tabNote) return null;
-          return (
-            <div
-              key={tabId}
-              className={`tab ${activeNoteId === tabId ? 'active' : ''}`}
-              onClick={() => onSelectNote(tabId)}
-            >
-              <span>{tabNote.title}</span>
-              <span
-                className="tab-close"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onCloseNote(tabId);
-                }}
-              >
-                ×
-              </span>
-            </div>
-          );
-        })}
-      </div>
-
       {/* Note Viewport (Full width scrolling) */}
       <div className="note-viewport">
         {/* Note Frame */}
@@ -671,11 +943,9 @@ export default function NotePane({
             vault &gt; {activeNote.folder} &gt; <span style={{ color: 'var(--text-primary)' }}>{activeNote.title}</span>
           </div>
 
-          {/* Note title header removed to prevent double titles */}
-
           {/* Note Content Render */}
           <div className="markdown-body">
-            {parseMarkdown(activeNote.content)}
+            {['projects', 'certifications', 'welcome', 'about', 'skills', 'experience', 'contact'].includes(activeNote.id) ? null : parseMarkdown(activeNote.content)}
             {renderCustomComponent(activeNote.id)}
           </div>
         </div>
