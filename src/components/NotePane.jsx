@@ -354,79 +354,115 @@ export default function NotePane({
           icon: <FileText className="project-icon" size={20} />,
           github: "https://github.com/Harvind20/Portfolio.git",
           desc: "A digital garden portfolio website modeled after an Obsidian vault. Engineered with custom hierarchical markdown parsing, sticky tab routing, custom interactive terminal dispatch (integrated with mailto client serialization), and a sleek dark-blue glassmorphic theme.",
-          tags: ["React", "Vite", "Vanilla CSS", "Glassmorphism", "Markdown Parser"]
+          tags: ["React", "Vite", "Vanilla CSS", "Glassmorphism", "Markdown Parser"],
+          status: "Live",
+          meta: "v2.0",
+          colSpan: 2
         },
         {
           title: "Academic Publication & Research Tracker",
           icon: <FileText className="project-icon" size={20} />,
           github: "https://github.com/The-silver-ghost/academicPublication.git",
           desc: "Full-stack academic research ledger built with Flask and SQLite. Features faculty-level analytics dashboards, a responsive vanilla frontend, role-based controls, and secure session management.",
-          tags: ["Flask", "SQLite", "JavaScript", "Database Design"]
+          tags: ["Flask", "SQLite", "JavaScript", "Database Design"],
+          status: "Production",
+          meta: "v1.2",
+          colSpan: 1
         },
         {
           title: "Multi-Process C Snakes & Ladders",
           icon: <Terminal className="project-icon" size={20} />,
           desc: "Networked multiplayer game built in C using POSIX socket programming. Engineered client-server packet handshakes, state synchronization, and process failure recovery protocols.",
-          tags: ["C Programming", "POSIX Sockets", "Concurrency", "UML Modeling"]
+          tags: ["C Programming", "POSIX Sockets", "Concurrency", "UML Modeling"],
+          status: "Complete",
+          meta: "Networked",
+          colSpan: 1
         },
         {
           title: "Java Parking Management System",
           icon: <Terminal className="project-icon" size={20} />,
           github: "https://github.com/Harvind20/ParkingManagementSystem.git",
           desc: "Desktop automations application employing JDBC and SQLite. Designed architecture separating UI and logic using structural patterns: Facade, Bridge, Builder, and Strategy.",
-          tags: ["Java", "Java Swing", "JDBC", "Design Patterns"]
+          tags: ["Java", "Java Swing", "JDBC", "Design Patterns"],
+          status: "Verified",
+          meta: "Desktop",
+          colSpan: 2
         },
         {
           title: "Java Seminar Management System",
           icon: <FileText className="project-icon" size={20} />,
           github: "https://github.com/Harvind20/SeminarManagementSystem.git",
           desc: "Scheduling and grading manager designed for university faculty. Decoupled controller layers using sequence modeling to ensure code modularity and robust file storage.",
-          tags: ["Java", "Java Swing", "System Scoping", "Sequence Diagrams"]
+          tags: ["Java", "Java Swing", "System Scoping", "Sequence Diagrams"],
+          status: "Verified",
+          meta: "Desktop",
+          colSpan: 1
         },
         {
           title: "Touch 'n Go Digital Wallet Simulator",
           icon: <Terminal className="project-icon" size={20} />,
           github: "https://github.com/Harvind20/TouchNGo-Simulator-LDCW6123-.git",
           desc: "Fintech payment simulation in C++ mirroring local ecosystems. Models bank transfers, QR deductions, and P2P transfers utilizing real-time latency threads.",
-          tags: ["C++", "Logic Development", "Terminal Simulation"]
+          tags: ["C++", "Logic Development", "Terminal Simulation"],
+          status: "Complete",
+          meta: "C++",
+          colSpan: 1
         },
         {
           title: "C++ Robot Battlefield Simulator",
           icon: <Terminal className="project-icon" size={20} />,
           github: "https://github.com/The-silver-ghost/robot-war-simulator.git",
           desc: "OOP-driven autonomous grid simulation. Implemented virtual and multiple inheritance hierarchies to resolve diamond dependency conflicts and dynamic upgrade engines.",
-          tags: ["C++", "OOP Design", "Multiple Inheritance", "File-Driven Config"]
+          tags: ["C++", "OOP Design", "Multiple Inheritance", "File-Driven Config"],
+          status: "Complete",
+          meta: "OOP",
+          colSpan: 2
         },
         {
           title: "BudgetBadger: Social Finance WebApp",
           icon: <FileText className="project-icon" size={20} />,
           github: "https://github.com/Harvind20/Mini-IT-TC4L-Group-7.git",
           desc: "Gamified budgeting tracker for students built in Flask. Supports social metrics (following, leaderboard standings), transaction logging, and automated achievement badge allocations.",
-          tags: ["Python", "Flask", "SQLite", "PythonAnywhere"]
+          tags: ["Python", "Flask", "SQLite", "PythonAnywhere"],
+          status: "Production",
+          meta: "Flask",
+          colSpan: 1
         }
       ];
 
       return (
         <div className="projects-grid">
           {projects.map((proj, idx) => (
-            <div key={idx} className="project-card">
+            <div key={idx} className={`project-card ${proj.colSpan === 2 ? 'span-2' : ''}`}>
               <div className="project-card-header">
-                {proj.icon}
-                <div className="project-links">
-                  {proj.github && (
-                    <a href={proj.github} target="_blank" rel="noopener noreferrer" className="project-link-btn" title="View Source">
-                      <GithubIcon size={16} />
-                    </a>
-                  )}
+                <div className="project-icon-wrapper">
+                  {proj.icon}
                 </div>
+                <span className="project-status-badge">{proj.status || "Active"}</span>
               </div>
-              <h3 className="project-card-title">{proj.title}</h3>
-              <p className="project-card-desc">{proj.desc}</p>
-              <div className="project-tags">
-                {proj.tags.map((tag, tIdx) => (
-                  <span key={tIdx} className="project-tag">{tag}</span>
-                ))}
+              <div className="project-card-body">
+                <h3 className="project-card-title">
+                  {proj.title}
+                  {proj.meta && <span className="project-card-meta">{proj.meta}</span>}
+                </h3>
+                <p className="project-card-desc">{proj.desc}</p>
               </div>
+              <div className="project-card-footer">
+                <div className="project-tags">
+                  {proj.tags.map((tag, tIdx) => (
+                    <span key={tIdx} className="project-tag">#{tag}</span>
+                  ))}
+                </div>
+                {proj.github ? (
+                  <a href={proj.github} target="_blank" rel="noopener noreferrer" className="project-cta-link">
+                    Explore →
+                  </a>
+                ) : (
+                  <span className="project-cta-link disabled">Internal</span>
+                )}
+              </div>
+              
+              <div className="project-card-mesh-bg" />
             </div>
           ))}
         </div>
@@ -437,7 +473,7 @@ export default function NotePane({
       const certifications = [
         {
           date: "2 June 2026",
-          name: "🚀 Build Your Digital Presence",
+          name: "Build Your Digital Presence",
           issuer: "GDGoC UTM",
           desc: "A hands-on workshop focused on LinkedIn profile optimization, personal branding strategies, and portfolio website development utilizing Google Antigravity.",
           skills: ["Personal Branding", "LinkedIn", "Portfolio Development", "Google Antigravity"]

@@ -13,7 +13,7 @@ Click on any of the pages in the sidebar explorer to navigate:
 
 *   🧑‍💻 **About Me**: Learn more about my background, education, and interests.
 *   🛠️ **Skills**: Check out my languages, frameworks, developer tools, and certifications.
-*   🚀 **Projects**: View my software projects with GitHub repositories and technologies used.
+*   💻 **Projects**: View my software projects with GitHub repositories and technologies used.
 *   💼 **Experience**: Read about my past professional roles and leadership experiences.
 *   📜 **Certifications**: Browse my technical training workshops and certificates.
 *   📞 **Contact**: Get in touch for internships (open for **July 27th to October 18th**!).

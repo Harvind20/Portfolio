@@ -39,8 +39,11 @@ body {
   font-family: var(--font-body);
   background-color: var(--bg-primary);
   background-image: 
-    radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.15) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(30, 64, 175, 0.1) 0px, transparent 50%);
+    linear-gradient(rgba(3, 7, 18, 0.8), rgba(3, 7, 18, 0.8)),
+    url("https://images.unsplash.com/photo-1432251407527-504a6b4174a2?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-size: cover;
+  background-position: center;
+  animation: moveBackground 120s linear infinite;
   color: var(--text-primary);
   overflow: hidden;
   height: 100vh;
@@ -467,72 +470,118 @@ body {
   box-shadow: 0 0 8px var(--success);
 }
 
-/* Projects Card Grid (Glassmorphism version) */
+/* Projects Card Grid (Bento Grid layout & Glassmorphism theme) */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
   margin-top: 10px;
 }
 
 .project-card {
-  background: rgba(17, 25, 48, 0.35);
+  background: rgba(10, 17, 32, 0.4);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 24px;
-  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              border-color 0.3s ease, 
+              box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
   height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card.span-2 {
+  grid-column: span 2;
 }
 
 .project-card:hover {
   transform: translateY(-4px);
   border-color: rgba(59, 130, 246, 0.45);
-  box-shadow: 0 8px 30px rgba(30, 58, 138, 0.25);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
 }
 
 .project-card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
-.project-icon {
-  color: var(--accent);
-}
-
-.project-links {
+.project-icon-wrapper {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
   display: flex;
-  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--accent);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.project-link-btn {
+.project-card:hover .project-icon-wrapper {
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  color: #fff;
+}
+
+.project-status-badge {
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 6px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.05);
   color: var(--text-muted);
-  transition: color var(--transition-fast);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.project-link-btn:hover {
+.project-card:hover .project-status-badge {
+  background: rgba(59, 130, 246, 0.2);
   color: var(--accent-hover);
+}
+
+.project-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1;
+  margin-bottom: 20px;
 }
 
 .project-card-title {
   font-family: var(--font-ui);
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 10px;
+  font-size: 1.15rem;
+  font-weight: 600;
   color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.01em;
+}
+
+.project-card-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: normal;
 }
 
 .project-card-desc {
   font-size: 0.88rem;
   color: var(--text-muted);
-  margin-bottom: 18px;
   line-height: 1.6;
-  flex-grow: 1;
+}
+
+.project-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
 }
 
 .project-tags {
@@ -543,12 +592,70 @@ body {
 
 .project-tag {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   background-color: rgba(255, 255, 255, 0.05);
-  padding: 3px 8px;
+  padding: 2px 6px;
   border-radius: 4px;
   color: #94a3b8;
   border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background-color 0.2s ease;
+}
+
+.project-card:hover .project-tag:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.project-cta-link {
+  font-size: 0.8rem;
+  color: var(--accent-hover);
+  text-decoration: none;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateX(-5px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.project-cta-link.disabled {
+  color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.3;
+  transform: none;
+}
+
+.project-card:hover .project-cta-link:not(.disabled) {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Bento Grid Background Mesh Pattern on Hover */
+.project-card-mesh-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  background-image: radial-gradient(circle at center, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+
+.project-card:hover .project-card-mesh-bg {
+  opacity: 1;
+}
+
+@media (max-width: 1200px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  .project-card.span-2 {
+    grid-column: span 1;
+  }
 }
 
 /* Glassmorphism Interactive Terminal */
@@ -747,5 +854,17 @@ body {
     width: 100%;
     min-width: unset;
     margin-left: 0;
+  }
+}
+
+@keyframes moveBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
