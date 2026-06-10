@@ -350,6 +350,13 @@ export default function NotePane({
     if (id === 'projects') {
       const projects = [
         {
+          title: "Personal Glassmorphic Portfolio (Harvind's Vault)",
+          icon: <FileText className="project-icon" size={20} />,
+          github: "https://github.com/Harvind20/Portfolio.git",
+          desc: "A digital garden portfolio website modeled after an Obsidian vault. Engineered with custom hierarchical markdown parsing, sticky tab routing, custom interactive terminal dispatch (integrated with mailto client serialization), and a sleek dark-blue glassmorphic theme.",
+          tags: ["React", "Vite", "Vanilla CSS", "Glassmorphism", "Markdown Parser"]
+        },
+        {
           title: "Academic Publication & Research Tracker",
           icon: <FileText className="project-icon" size={20} />,
           github: "https://github.com/The-silver-ghost/academicPublication.git",
@@ -428,6 +435,13 @@ export default function NotePane({
 
     if (id === 'certifications') {
       const certifications = [
+        {
+          date: "2 June 2026",
+          name: "🚀 Build Your Digital Presence",
+          issuer: "GDGoC UTM",
+          desc: "A hands-on workshop focused on LinkedIn profile optimization, personal branding strategies, and portfolio website development utilizing Google Antigravity.",
+          skills: ["Personal Branding", "LinkedIn", "Portfolio Development", "Google Antigravity"]
+        },
         {
           date: "19 May 2026",
           name: "C++ Intermediate",
