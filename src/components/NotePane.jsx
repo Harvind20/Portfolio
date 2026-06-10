@@ -3,7 +3,8 @@ import {
   FileText, ExternalLink, ArrowRight, Send, Terminal, 
   Cpu, Globe, Award, Database, Briefcase, History, Mail, 
   User, ChevronRight, CheckCircle, Clock, Star, TrendingUp, 
-  Video, Calendar, MapPin, Cloud, Link, Activity, Settings
+  Video, Calendar, MapPin, Cloud, Link, Activity, Settings,
+  GraduationCap, Code
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { motion } from 'framer-motion';
